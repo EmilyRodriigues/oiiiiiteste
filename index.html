@@ -100,12 +100,12 @@ Book a Call
     <div id="confetti-root"></div>
 
     <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 perspective-1000">
-    <video autoplay muted loop playsinline 
-class="absolute inset-0 w-full h-full object-cover">
+    <video id="hero-video" autoplay muted loop playsinline 
+    class="absolute inset-0 w-full h-full object-cover">
 
-<source src="video.mp4" type="video/mp4">
+    <source src="video.mp4" type="video/mp4">
 
-</video>
+    </video>
 
     <div class="absolute inset-0 bg-black/50"></div>
 
@@ -204,6 +204,21 @@ class="absolute inset-0 w-full h-full object-cover">
         </div>
     </footer>
     <audio id="car-sound" src="car-engine.mp3"></audio>
+
+    <!-- Surpresa para o vídeo da família -->
+    <div id="surprise-overlay" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999] hidden">
+
+    <button id="close-surprise" class="absolute top-6 right-8 text-white text-3xl">
+    ✕
+    </button>
+
+    <div class="w-[90%] max-w-3xl">
+    <video id="surprise-video" class="w-full rounded-xl shadow-2xl" controls>
+    <source src="video.mp4" type="video/mp4">
+    </video>
+    </div>
+
+    </div>
 
     <script src="script.js"></script>
 </body>
