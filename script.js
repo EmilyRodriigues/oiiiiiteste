@@ -271,4 +271,16 @@ video.pause();
 
 });
 
+//parte do botão surpresa que leva para a seção do motor
+const btnSurpresa = document.getElementById("btn-surpresa");
+
+btnSurpresa.addEventListener("click", function(){
+
+document.getElementById("engine-section").scrollIntoView({
+behavior: "smooth"
+});
+
+});
+ 
+
 lucide.createIcons();
