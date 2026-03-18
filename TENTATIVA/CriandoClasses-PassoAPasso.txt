@@ -1,0 +1,68 @@
+criando classes no java:
+
+1º instalar o java --- https://www.java.com/pt-BR/download/
+2º instalar o jdk --- https://www.oracle.com/br/java/technologies/downloads/#jdk25-windows
+
+3º criar uma pasta e entrar no vs
+4º criar um arquivo Mae.java -- esse é o arquivo da nossa classe Mae (é como se fosse uma tabela) e dentro desse arquivo a gente vai colocar os ATRIBUTOS
+EX: public class Mae {
+    int idMae;
+    String nomeMae;
+    String telefoneMae;
+    String emailMae;
+    String cidadeMae;
+    int filhosMae;
+    String empregoMae;
+    String senhaMae;
+
+    int idForum;
+    int idConsulta;
+    int idCalendario;
+    int idChat;
+    int idEvento;
+    int idArtigo;
+}
+
+5º Vamos criar um arquivo chamado Main.java -- ele começa a rodar 
+
+6º escrever o seguinte código:
+public class Main { //esse é o nome do nosso "programa principal"
+    public static void main(String[] args){ // aqui é como se falássemos para o java começar a executar daqui
+        
+        Mae m1 = new Mae(); // aqui a gente cria uma mãe (como se tivéssemos fazendo um cadastro)
+    
+        m1.idMae = 1; // aqui preenchemos os dados da mae 
+        m1.nomeMae = "Ana";
+        m1.telefoneMae = "11999999999";
+        m1.emailMae = "ana@email.com";
+        m1.cidadeMae = "São Paulo";
+        m1.filhosMae = 2;
+        m1.empregoMae = "Autônoma";
+        m1.senhaMae = "123456";
+
+        m1.idForum = 10;
+        m1.idConsulta = 5;
+        m1.idCalendario = 3;
+        m1.idChat = 8;
+        m1.idEvento = 2;
+        m1.idArtigo = 7;
+
+        System.out.println(m1.nomeMae + " - " + m1.cidadeMae + " - " + m1.filhosMae + " filhos"); // mostra as informações na tela (console "Ctrl+J")
+    }
+
+}
+
+7º Para executar essa ultima linha de código, e vermos se ele salvou tudo como deveria: 
+abrir o console --  digitar "javac Main.java" e dar Enter" -- digitar "java Main" e dar Enter --
+
+Depois disso ele vai aparecer assim: Ana - São Paulo - 2 filhos (que foi como pedimos para ele fazer)
+
+Vocês vao ver que ele vai criar mais 2 arquivos, chamados Mae.class e Main.class (esses são arquivos que o java transforma para o computador entender a nossa linguagem, ou seja ignoramos)
+Mas para não deixar eles ali atrapalhando, a gente arruma
+
+Dentro da nossa pasta, criamos mais uma pasta que eu dei o nome de "Classes", e ai abrimos o console e damos esse comando:
+javac -d Classes Main.java Mae.java - Enter
+
+Ai quando abrirmos a pasta "classes" tcharamm, os dois arquivos estarão la (e se continuar os dois arquivos .class junto com os dois .java, pode excluir)
+
+
