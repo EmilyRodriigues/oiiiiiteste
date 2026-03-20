@@ -90,10 +90,16 @@ GABRIEL
 <a href="#" class="hover:text-secondary transition">Pista de Lembranças</a>
 <a href="#" class="hover:text-secondary transition">Mural de Fotos</a>
 </nav>
+<div class="flex items-center gap-3">
+
+<button id="music-toggle" class="music-btn">
+<i data-lucide="volume-x"></i>
+</button>
 
 <a href="#engine-section" class="bg-primary px-5 py-2 rounded-lg font-semibold hover:scale-105 transition inline-block">
 Surpresa!
 </a>
+</div>
 </div>
 </header>
 
@@ -124,7 +130,15 @@ Surpresa!
         
         </div>
 </section>
+<div class="timeline-divider">
 
+    <div class="track-line"></div>
+
+    <div class="track-icon">
+        <i data-lucide="flag"></i>
+    </div>
+
+</div>
     <section id="timeline-section" class="relative py-24 px-4 bg-muted/50 overflow-hidden">
         <div class="max-w-4xl mx-auto">
             <div class="timeline-header text-center mb-16 opacity-0">
@@ -208,9 +222,9 @@ Surpresa!
     <!-- Surpresa para o vídeo da família -->
     <div id="surprise-overlay" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999] hidden">
 
-    <button id="close-surprise" class="absolute top-6 right-8 text-white text-3xl">
-    ✕
-    </button>
+    <button id="close-surprise" class="absolute top-6 right-8 text-white text-3xl hover:scale-125 transition-transform">
+            ✕
+        </button>
 
     <div class="w-[90%] max-w-3xl">
     <video id="surprise-video" class="w-full rounded-xl shadow-2xl" controls>
@@ -221,5 +235,8 @@ Surpresa!
     </div>
 
     <script src="script.js"></script>
+    <audio id="bg-music" loop>
+    <source src="testemusica.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>
