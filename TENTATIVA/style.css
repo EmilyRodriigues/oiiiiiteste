@@ -7,13 +7,12 @@
         --text-muted: #a3a3a3;
     }
 
-    body {
-        background-color: var(--background);
-        color: white;
-        font-family: 'Inter', sans-serif;
-        margin: 0;
-        overflow-x: hidden;
-    }
+   /* Adicione isso no seu <style> no index.html */
+body {
+    background-color: #fcfbf9; /* Tom de areia super claro */
+    /* Micro-textura de poeira do deserto / asfalto */
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d1caba' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
 
     /* Fontes Customizadas Simulação */
     @font-face {
@@ -163,6 +162,7 @@ height:42px;
 header .flex{
 align-items:center;
 }
+
 
 
 

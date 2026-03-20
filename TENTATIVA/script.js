@@ -73,7 +73,7 @@ const playEngine = () => {
 // 3. Renderização do Mural (Fotos)
 photos.forEach((p) => {
     const card = document.createElement('div');
-    card.className = "group relative aspect-square rounded-2xl overflow-hidden bg-white border-2 border-border shadow-md";
+   card.className = "group relative aspect-square rounded-2xl overflow-hidden bg-white border-2 border-border shadow-[0_4px_20px_rgba(239,51,64,0.15)] hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(255,200,0,0.25)] transition-all duration-300";
     card.innerHTML = `
         <div class="absolute inset-0">
             <img src="${p.img}" class="w-full h-full object-cover">
@@ -121,7 +121,7 @@ if (timelineContainer) {
                 <div class="mt-4 shrink-0 w-10 h-10 rounded-full bg-[#ff7a00] flex items-center justify-center shadow-md text-white border-[4px] border-background relative z-20">
                     <i data-lucide="${m.icon}" class="w-4 h-4"></i>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm w-full text-left">
+               <div class="bg-white border-b border-l border-r border-gray-200 border-t-4 border-t-primary rounded-2xl p-6 shadow-sm text-left relative z-20 hover:shadow-lg transition-all">
                     <div class="flex items-center gap-2 mb-3">
                         ${checkeredBox}
                         <span class="text-primary font-bold tracking-[0.15em] text-xs uppercase">${m.date}</span>
@@ -154,8 +154,19 @@ document.getElementById('hero-title').innerHTML = `
 const tlHero = gsap.timeline();
 tlHero.from(".ground-element", { y: 100, opacity: 0, duration: 1.2 })
     .from(".letter", { y: 100, opacity: 0, rotationX: -90, stagger: 0.05, ease: "back.out(1.5)" }, "-=0.8")
-    .fromTo("#animated-car", { x: "-30vw" }, { x: "120vw", duration: 2, ease: "power2.inOut", onComplete: triggerConfetti }, "-=1.5");
+    .add(triggerConfetti); // Solta os confetes quando o texto aparece
 
+// Animação infinita do carrinho (Loop Ka-Chow!)
+gsap.fromTo("#animated-car", 
+    { x: "-30vw" }, // Posição inicial (fora da tela na esquerda)
+    { 
+        x: "150vw", // Posição final (fora da tela na direita)
+        duration: 3.5, // Velocidade que ele cruza a tela
+        ease: "power1.inOut", // Acelera e desacelera suavemente
+        repeat: -1, // O segredo do loop infinito! (-1 significa para sempre)
+        repeatDelay: 1.5 // Tempo de espera (em segundos) antes dele passar de novo
+    }
+);  
 // 6. Lógica do Motor e Botões
 let revs = 0;
 const engineBtn = document.getElementById("engine-btn");
