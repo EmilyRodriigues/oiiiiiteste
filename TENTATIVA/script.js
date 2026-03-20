@@ -86,33 +86,60 @@ photos.forEach((p) => {
 });
 
 // 4. Renderização da Pista (Timeline)
-milestones.forEach((m, i) => {
-    const item = document.createElement('div');
-    item.className = "relative mb-10 opacity-0";
-    const isLeft = i % 2 === 0;
-    item.innerHTML = `
-        <div class="hidden md:grid grid-cols-[1fr_80px_1fr] items-center">
-            <div class="bg-white border-2 border-border rounded-2xl p-6 shadow-md ${isLeft ? 'col-start-1 text-right' : 'col-start-3 text-left'}">
-                <span class="font-cars text-primary text-lg">${m.date} ${m.emoji}</span>
-                <h3 class="font-display text-xl font-bold">${m.title}</h3>
-                <p class="text-muted-foreground text-sm">${m.description}</p>
-            </div>
-            <div class="col-start-2 flex justify-center z-10">
-                <div class="w-14 h-14 rounded-full bg-gradient-racing flex items-center justify-center shadow-lg text-white">
-                    <i data-lucide="${m.icon}"></i>
+const timelineContainer = document.getElementById('timeline-items-container');
+if (timelineContainer) {
+    timelineContainer.innerHTML = ''; // Limpa antes de gerar para não duplicar
+
+    milestones.forEach((m, i) => {
+        const item = document.createElement('div');
+        item.className = "relative mb-12 opacity-0"; // Opacidade 0 para animação do GSAP
+        const isLeft = i % 2 === 0;
+
+        // Padrão quadriculado em CSS (o ícone da bandeira igual o da foto!)
+        const checkeredBox = `<div class="w-4 h-4 rounded-[2px]" style="background-image: conic-gradient(#374151 90deg, transparent 90deg, transparent 180deg, #374151 180deg, #374151 270deg, transparent 270deg); background-size: 8px 8px; background-color: #e5e7eb;"></div>`;
+
+        item.innerHTML = `
+            <div class="hidden md:grid grid-cols-[1fr_80px_1fr] items-center">
+                <div class="${isLeft ? 'col-start-1 pr-8' : 'col-start-3 pl-8'}">
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-left relative z-20 hover:shadow-md transition-all">
+                        <div class="flex items-center gap-2 mb-3">
+                            ${checkeredBox}
+                            <span class="text-primary font-bold tracking-[0.15em] text-xs uppercase">${m.date}</span>
+                        </div>
+                        <h3 class="font-sans text-xl font-extrabold text-[#1f2937] mb-2">${m.title}</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">${m.description}</p>
+                    </div>
+                </div>
+                <div class="col-start-2 flex justify-center z-20 relative">
+                    <div class="w-12 h-12 rounded-full bg-[#ff7a00] flex items-center justify-center shadow-md text-white border-[5px] border-background">
+                        <i data-lucide="${m.icon}" class="w-5 h-5"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="md:hidden flex items-center gap-4 pl-12 relative">
-            <div class="bg-white border-2 border-border rounded-2xl p-4 shadow-sm w-full">
-                <span class="font-cars text-primary text-sm">${m.date}</span>
-                <h3 class="font-display text-lg font-bold">${m.title}</h3>
+
+            <div class="md:hidden flex items-start gap-4 pl-4 relative z-20">
+                <div class="mt-4 shrink-0 w-10 h-10 rounded-full bg-[#ff7a00] flex items-center justify-center shadow-md text-white border-[4px] border-background relative z-20">
+                    <i data-lucide="${m.icon}" class="w-4 h-4"></i>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm w-full text-left">
+                    <div class="flex items-center gap-2 mb-3">
+                        ${checkeredBox}
+                        <span class="text-primary font-bold tracking-[0.15em] text-xs uppercase">${m.date}</span>
+                    </div>
+                    <h3 class="font-sans text-lg font-extrabold text-[#1f2937] mb-2">${m.title}</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">${m.description}</p>
+                </div>
             </div>
-        </div>
-    `;
-    document.getElementById('timeline-items-container').appendChild(item);
-    gsap.to(item, { opacity: 1, scrollTrigger: item, y: 0, duration: 1 });
-});
+        `;
+        timelineContainer.appendChild(item);
+        
+        // Ativa a animação de scroll
+        gsap.to(item, { opacity: 1, scrollTrigger: item, y: 0, duration: 1 });
+    });
+    
+    // Atualiza os ícones do Lucide criados dinamicamente
+    lucide.createIcons();
+}
 
 // 5. Hero e Animações
 document.getElementById('animated-car').innerHTML = getCarSvg("w-32 h-16 drop-shadow-2xl scale-x-[-1]");
