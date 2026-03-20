@@ -13,12 +13,12 @@ const milestones = [
 ];
 
 const photos = [
-    { label: "Radiator Springs", img: "foto4.jpeg" },
-    { label: "Rota 66", img: "foto5.jpeg" },
-    { label: "Copa Pistão", img: "foto3.jpeg" },
-    { label: "Pit Stop", img: "foto1.jpeg" },
-    { label: "Pista de Corrida", img: "foto2.jpeg" },
-    { label: "Linha de Chegada", img: "foto6.jpeg" },
+    { label: "Braveza", img: "foto4.jpeg" },
+    { label: "Pescando", img: "foto5.jpeg" },
+    { label: "Malcriação", img: "foto3.jpeg" },
+    { label: "Esmagando o irmão", img: "foto1.jpeg" },
+    { label: "Familia", img: "foto2.jpeg" },
+    { label: "Laço eterno", img: "foto6.jpeg" },
 ];
 
 const quotes = [
@@ -151,22 +151,7 @@ document.getElementById('hero-title').innerHTML = `
     <span class="text-white drop-shadow-md block mt-2">${splitHTML("É SEU DIA!")}</span>
 `;
 
-const tlHero = gsap.timeline();
-tlHero.from(".ground-element", { y: 100, opacity: 0, duration: 1.2 })
-    .from(".letter", { y: 100, opacity: 0, rotationX: -90, stagger: 0.05, ease: "back.out(1.5)" }, "-=0.8")
-    .add(triggerConfetti); // Solta os confetes quando o texto aparece
 
-// Animação infinita do carrinho (Loop Ka-Chow!)
-gsap.fromTo("#animated-car", 
-    { x: "-30vw" }, // Posição inicial (fora da tela na esquerda)
-    { 
-        x: "150vw", // Posição final (fora da tela na direita)
-        duration: 3.5, // Velocidade que ele cruza a tela
-        ease: "power1.inOut", // Acelera e desacelera suavemente
-        repeat: -1, // O segredo do loop infinito! (-1 significa para sempre)
-        repeatDelay: 1.5 // Tempo de espera (em segundos) antes dele passar de novo
-    }
-);  
 // 6. Lógica do Motor e Botões
 let revs = 0;
 const engineBtn = document.getElementById("engine-btn");
