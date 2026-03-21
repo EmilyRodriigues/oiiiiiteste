@@ -155,14 +155,38 @@ if (timelineContainer) {
 }
 
 // 5. Hero e Animações
-document.getElementById('animated-car').innerHTML = getCarSvg("w-32 h-16 drop-shadow-2xl scale-x-[-1]");
-document.getElementById('timeline-car-icon').innerHTML = getCarSvg("w-20 h-10 mx-auto");
 
+// 1. Injeta a IMAGEM do McQueen na pista animada (Hero)
+// 1. Injeta a IMAGEM do McQueen na pista animada (Hero)
+const carContainer = document.getElementById('animated-car');
+if (carContainer) {
+    // Reduzi de w-48 md:w-64 para w-36 md:w-48 para deixar o carro menorzinho
+    carContainer.innerHTML = `<img src="mcquenn.png" alt="Relâmpago McQueen" class="w-36 md:w-48 h-auto object-contain drop-shadow-[0_0_15px_rgba(239,51,64,0.6)]">`;
+}
+
+// 2. Injeta a IMAGEM do McQueen acima da Linha do Tempo
+const timelineIcon = document.getElementById('timeline-car-icon');
+if (timelineIcon) {
+    timelineIcon.innerHTML = `<img src="mcquenn.png" alt="Relâmpago McQueen" class="w-30 md:w-32 h-auto mx-auto object-contain drop-shadow-lg">`;
+}
+
+// Animação do título
 const splitHTML = (text) => text.split('').map(c => `<span class="letter inline-block ${c===' '?'w-4':''}">${c}</span>`).join('');
 document.getElementById('hero-title').innerHTML = `
     <span class="text-white drop-shadow-md block mt-2">${splitHTML("É SEU DIA!")}</span>
 `;
 
+// 3. Animação infinita do carrinho cruzando a tela
+gsap.fromTo("#animated-car", 
+    { x: "-30vw" }, // Posição inicial (escondido na esquerda)
+    { 
+        x: "120vw", // Posição final (escondido na direita)
+        duration: 2.8, // Velocidade
+        ease: "power2.inOut", 
+        repeat: -1, // Loop infinito
+        repeatDelay: 2 // Tempo que ele demora para passar de novo (2 segundos)
+    }
+);
 
 // 6. Lógica do Motor e Botões
 let revs = 0;
