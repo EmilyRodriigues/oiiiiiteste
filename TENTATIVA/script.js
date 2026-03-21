@@ -60,14 +60,27 @@ function triggerConfetti() {
     }
 }
 
+// Criamos a variável de áudio do lado de FORA da função (isso evita o travamento)
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 const playEngine = () => {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    // Retoma o áudio caso o navegador tenha pausado
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
     osc.type = "sawtooth";
-    gain.gain.setValueAtTime(0.25, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 2);
-    osc.start(); osc.stop(ctx.currentTime + 2);
+    gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2);
+    
+    // Conecta o som à saída de áudio do PC/Celular
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start(); 
+    osc.stop(audioCtx.currentTime + 2);
 };
 
 // 3. Renderização do Mural (Fotos)
@@ -75,13 +88,13 @@ photos.forEach((p) => {
     const card = document.createElement('div');
    card.className = "group relative aspect-square rounded-2xl overflow-hidden bg-white border-2 border-border shadow-[0_4px_20px_rgba(239,51,64,0.15)] hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(255,200,0,0.25)] transition-all duration-300";
     card.innerHTML = `
-        <div class="absolute inset-0">
-            <img src="${p.img}" class="w-full h-full object-cover">
-        </div>
-        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors"></div>
-        <span class="absolute bottom-3 left-3 text-white font-cars text-sm">${p.label}</span>
-        <button class="like-btn absolute top-3 right-3 text-2xl">🤍</button>
-    `;
+    <div class="absolute inset-0">
+        <img src="${p.img}" alt="Memória: ${p.label}" class="w-full h-full object-cover">
+    </div>
+    <div class="absolute inset-0 bg-black/30"></div>
+    <span class="absolute bottom-3 left-3 text-white font-cars text-sm">${p.label}</span>
+    <button aria-label="Marcar como favorita" class="like-btn absolute top-3 right-3 text-2xl">🤍</button>
+`;
     document.getElementById('gallery-grid').appendChild(card);
 });
 
@@ -147,7 +160,6 @@ document.getElementById('timeline-car-icon').innerHTML = getCarSvg("w-20 h-10 mx
 
 const splitHTML = (text) => text.split('').map(c => `<span class="letter inline-block ${c===' '?'w-4':''}">${c}</span>`).join('');
 document.getElementById('hero-title').innerHTML = `
-    <span class="text-gradient-racing block pb-2">${splitHTML("Acelere,")}</span>
     <span class="text-white drop-shadow-md block mt-2">${splitHTML("É SEU DIA!")}</span>
 `;
 
@@ -182,11 +194,15 @@ function abrirSurpresa() {
     revs = 0;
 }
 
-// CORREÇÃO: Fechar e voltar ao topo
+// Mantenha apenas UMA declaração para o botão fechar:
 document.getElementById("close-surprise").addEventListener("click", () => {
-    document.getElementById("surprise-overlay").classList.add("hidden");
-    document.getElementById("surprise-video").pause();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const overlay = document.getElementById("surprise-overlay");
+    const video = document.getElementById("surprise-video");
+    
+    overlay.classList.add("hidden");
+    video.pause();
+    video.currentTime = 0; // Volta o vídeo do início
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola pro topo opcionalmente
 });
 
 document.getElementById("btn-surpresa").addEventListener("click", (e) => {
@@ -213,17 +229,17 @@ const musicBtn = document.getElementById("music-toggle");
 let musicPlaying = false;
 
 musicBtn.addEventListener("click", () => {
-
     if(!musicPlaying){
         music.volume = 0.5;
         music.play();
-        musicBtn.innerHTML = '<i data-lucide="volume-2"></i>';
-    }else{
+        // Substituição direta sem escanear o DOM inteiro novamente
+        musicBtn.innerHTML = '<i data-lucide="volume-2"></i>'; 
+    } else {
         music.pause();
         musicBtn.innerHTML = '<i data-lucide="volume-x"></i>';
     }
-
     musicPlaying = !musicPlaying;
-
-    lucide.createIcons();
+    
+    // Apenas recria os ícones inseridos recentemente (o do botão)
+    lucide.createIcons(); 
 });
