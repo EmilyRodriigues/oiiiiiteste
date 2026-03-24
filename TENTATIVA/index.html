@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>McQueen's Victory Lap</title>
+    <title>Feliz aniversário! - 24/03/2026!</title>
+    <link rel="icon" type="image/png" href="mcquenn.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bangers&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -74,11 +75,18 @@
 
         .perspective-1000 { perspective: 1000px; }
         .animated-car-container { pointer-events: none; }
+
+        .header-scrolled {
+            background-color: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; }
     </style>
 </head>
 <body class="bg-background text-foreground font-sans overflow-x-hidden">
     
-    <header class="fixed top-0 left-0 w-full z-50">
+<header id="main-header" class="fixed top-0 left-0 w-full z-50 bg-transparent transition-all duration-500">
 <div class="flex items-center justify-between px-10 py-6 text-white">
 
 <div class="font-display text-2xl font-bold tracking-wider">
@@ -86,15 +94,24 @@ GABRIEL
 </div>
 
 <nav class="hidden md:flex gap-8 text-sm">
-<a href="#" class="hover:text-secondary transition">Home</a>
-<a href="#" class="hover:text-secondary transition">Pista de Lembranças</a>
-<a href="#" class="hover:text-secondary transition">Mural de Fotos</a>
+    <a href="#hero-section" class="hover:text-secondary transition">Home</a>
+    <a href="#timeline-section" class="hover:text-secondary transition">Linha do Tempo</a>
+    <a href="#photo-gallery" class="hover:text-secondary transition">Mural de Fotos</a>
 </nav>
 <div class="flex items-center gap-3">
 
-<button id="music-toggle" class="music-btn">
-<i data-lucide="volume-x"></i>
-</button>
+<div class="relative flex items-center">
+    
+    <div id="audio-tooltip" class="absolute right-full mr-3 whitespace-nowrap bg-[#2d2d2d] text-white text-sm font-medium py-2 px-4 rounded-md shadow-lg flex items-center animate-pulse transition-opacity duration-500 z-10 pointer-events-none">
+        <div class="absolute -right-1.5 top-1/2 -translate-y-1/2 w-0 h-0 border-y-[6px] border-y-transparent border-l-[6px] border-l-[#2d2d2d]"></div>
+        Liga o som ai momoxi😁
+    </div>
+
+    <button id="music-toggle" class="music-btn relative z-20">
+        <i data-lucide="volume-x"></i>
+    </button>
+    
+</div>
 
 <a href="#engine-section" class="bg-primary px-5 py-2 rounded-lg font-semibold hover:scale-105 transition inline-block">
 Surpresa!
@@ -133,7 +150,7 @@ Surpresa!
         <div class="max-w-4xl mx-auto">
             <div class="timeline-header text-center mb-16 relative z-20"> 
                 <div id="timeline-car-icon" class="w-20 h-10 mx-auto mb-4 animate-float"></div>
-                <span class="text-primary font-medium text-lg tracking-wide block mb-2">Nossa Pista de Corrida</span>
+                <span class="text-primary font-medium text-lg tracking-wide block mb-2">Sua Pista de Corrida</span>
                 <h2 class="font-sans text-4xl sm:text-5xl font-extrabold text-[#1f2937] uppercase tracking-tight">Linha do Tempo</h2>
                 <div class="w-24 h-1.5 bg-gradient-racing mx-auto mt-6 rounded-full relative z-20"></div>
             </div>
@@ -202,11 +219,13 @@ Surpresa!
                 </div>
             </div>
             <h2 class="font-cars text-5xl sm:text-6xl tracking-wider mb-4">Feliz Aniversário!</h2>
-            <p class="opacity-80 leading-relaxed mb-8 text-lg">Hoje e sempre — estaremos juntos a você nessa corrida! 🏆❤️</p>
+            <p class="opacity-80 leading-relaxed mb-8 text-lg">Hoje e sempre estaremos juntos a você nessa corrida! 🏆❤️</p>
+            
             <div id="quote-card" class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-8 cursor-pointer hover:bg-white/20 transition-colors">
                 <p id="footer-quote" class="italic text-lg font-display">"Eu sou a velocidade!" — Relâmpago McQueen</p>
                 <span class="text-xs opacity-50 mt-3 block">Clique para próxima frase ▸</span>
             </div>
+            
         </div>
     </footer>
     <audio id="car-sound" src="car-engine.mp3"></audio>
@@ -226,9 +245,10 @@ Surpresa!
 
     </div>
 
-    <script src="script.js"></script>
     <audio id="bg-music" loop>
-    <source src="testemusica.mp3" type="audio/mpeg">
-</audio>
+        <source src="musicadofundo.mp4" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
 </body>
 </html>
